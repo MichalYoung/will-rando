@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Not found</title>
+
+
+<!-- External javascript and css:  jquery, bootstrap, font-awesome -->
+<script
+     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<link rel="stylesheet" type="text/css"
+     href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+/>
+
+<!-- Javascript and/or css packaged here -->
+<link rel="stylesheet" type="text/css"
+     href="/static/css/recruit.css" />
+
+</head>
+
+<body>
+<div class="container">
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <h1>Wat?</h1>
+
+    <p>Bad request.  Maybe it was https instead of http? Something
+    else?  If you have an idea of what triggered this, please
+    <a href="mailto:michal@cs.uoregon.edu">let Michal know</a>.</p>
+
+
+</div> <!-- bootstrap container -->
+</body>
+</html>
