@@ -40,6 +40,7 @@ app.debug=config.get("debug")
 app.secret_key = config.get("app_key")
 
 
+
 ###
 # Pages (app functionality)
 ###
@@ -47,6 +48,9 @@ app.secret_key = config.get("app_key")
 @app.route("/")
 @app.route("/index")
 def index():
+  app.logger.info("Index page")
+  today = arrow.now().isoformat()
+  flask.session["today"] = today
   return flask.render_template('index.html')
 
     
@@ -115,7 +119,14 @@ def fmtdate( date ):
   Turns an arrow ISO date into a human-readable
   date
   """
-  return arrow.get(date).format("dddd MMM D")
+  return arrow.get(date).format("ddd MMM D")
+
+@app.template_filter('how_long')
+def how_long(date):
+    """
+    Humanized description of how long until a given date.
+    """
+    return arrow.get(date).humanize()
 
 @app.template_filter('short_date')
 def short_date( date ):
@@ -170,10 +181,10 @@ def error_400(e):
 #############
 
 if __name__ == "__main__":
-    port = config.get("port")
+    port = int(config.get("port"))
     host = config.get("host")
-    print("Opening on {}:{}".format(host,port))
-    app.run(port=config.get("port"), host=config.get("host"))
+    app.logger.info("Opening on {}:{}".format(host,port))
+    app.run(port=port, host=host)
 else:
     # Running from WSGI server (gunicorn or similar), 
     # which makes the call to app.run.  Gunicorn may invoke more than

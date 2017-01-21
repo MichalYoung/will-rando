@@ -6,6 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="icon" type="image/png"
+           href="{{url_for('static', filename="img/bicon.png")}}" />
 <!-- Javascript and Cascading Style Sheets (css) libraries -->
 <!-- mostly from content delivery networks                 -->
 
@@ -27,7 +29,7 @@ crossorigin="anonymous">
 <!-- Styles, including link to Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Poiret+One"
   rel="stylesheet">
-<link href="{{url_for('static' filename="css/rando.css"}}"
+<link href="{{url_for('static', filename="css/rando.css")}}"
   rel="stylesheet">
 
 <link rel="icon"
@@ -69,25 +71,25 @@ crossorigin="anonymous">
   </div>
   
   <div class="mainblock">
+
+    {% if messages %}
   <div class="row">
     <div class="col-md-8">
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
+    {% with messages = get_flashed_messages() %}
     <ul class=flashes>
     {% for message in messages %}
       <li class="validation-msg">{{ message }}</li>
     {% endfor %}
     </ul>
-  {% endif %}
   {% endwith %}
   </div> <!-- col -->
   </div> <!-- row -->
+  {% endif %}
 
   {% block content %}
   {% endblock %}
 
 </div><!-- mainblock -->
-
 </div> <!-- container -->
 
 <!-- Latest compiled and minified JavaScript -->

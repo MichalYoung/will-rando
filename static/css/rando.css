@@ -1,20 +1,27 @@
 /*
  * Willamette Randonneurs style sheet
  */
+
+body  { background-color: rgb(229,229,229); }
+
 .validation-msg {
     color: rgb(200,0,50);
     font-weight: bolder;
     font-style: oblique;
     }
 
-.linkbanner { background-color: rgb(142,169,154);
+.linkbanner { background-color: rgb(200,200,200);
+	      color: rgb(159,0,20);
               min-height: 1ex;
               padding: 1ex;
              }
 
-.linkbanner a { color: rgb(240,240,0); }
+.linkbanner a { color: rgb(159,0,20); }
 
-.pagehead { background-color: rgb(214,244,214); }
+.pagehead { background-color: rgb(229,229,229); }
+.stroke   { background-color: rgb(229,229,229);
+	    background-image: url("static/img/stroke.png");
+	  }
 .pagehead h1 { color: rgb(159,0,20);
 	       font-family: Copperplate, "Copperplate Gothic Light",
 	       "Poiret One", sans-serif;
@@ -27,6 +34,9 @@
         size: smaller; }
 
 p.subhead { font-weight: bold; }
+td { vertical-align: text-top;
+     padding-top: .5em;
+    }
 
 
 
