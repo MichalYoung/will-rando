@@ -19,9 +19,6 @@ from werkzeug.exceptions import HTTPException, NotFound # ""
 
 import logging  # For debugging
 
-# For downloading CSV files
-import csv, io
-
 # For dates in activations.  Convention:  We
 # store all dates as ISO strings, converting
 # to and from human-readable forms only for
