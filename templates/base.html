@@ -51,7 +51,7 @@ crossorigin="anonymous">
 <div class="col-md-12">
   {% block linkbanner %}
       <a href="{{ url_for('index') }}">Home</a>
-    |  <a href="{{ url_for('pages', page="about") }}">About</a>
+    |  <a href="{{ url_for('pages', page="resources") }}">Resources</a>
     |  <a href="{{ url_for('pages', page="contact") }}">Contact</a>
   {% endblock %}
 </div> <!-- col -->
@@ -63,9 +63,9 @@ crossorigin="anonymous">
     <div class="col-md-12 text-center">
       <h1>{% block pagehead %}Willamette Randonneurs{% endblock %}</h1>
       {% block status_banner %}{% endblock %}
-      <p><em>{% block subhead %}
+      <h2>{% block subhead %}
       Since 2017
-      {% endblock %}</em></p>
+      {% endblock %}</h2>
     </div>
   </div> <!-- row -->
   </div>

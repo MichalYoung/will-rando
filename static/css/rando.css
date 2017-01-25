@@ -26,6 +26,10 @@ body  { background-color: rgb(229,229,229); }
 	       font-family: Copperplate, "Copperplate Gothic Light",
 	       "Poiret One", sans-serif;
 	     }
+.pagehead h2  { color: rgb(159,0,20);
+	       font-family: Copperplate, "Copperplate Gothic Light",
+	       "Poiret One", sans-serif;
+	     }
 
 .mainblock { background-color: rgb(229,229,229);
              padding-top:  1em;}
