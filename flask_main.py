@@ -71,6 +71,22 @@ def pages(page):
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
 
+@app.route("/pages/img/<pic>")
+def page_image(pic):
+  """
+  Static image associated with a page
+  """
+  app.logger.debug("Request for image: '{}'".format(pic))
+  try:
+    path = "templates/pages/img/{}".format(pic)
+    app.logger.debug("Download image from '{}'".format(path))
+    return flask.send_file(path)
+  except:
+    app.logger.debug("Caught exception downloading file")
+    # We should get TemplateNotFound exception when page URL is wrong
+    raise NotFound
+
+
 #########
 # Download center (pdf, doc, etc)
 # similar to static pages, but these live
