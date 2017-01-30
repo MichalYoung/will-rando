@@ -71,14 +71,50 @@ def pages(page):
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
 
-@app.route("/pages/img/<pic>")
-def page_image(pic):
+@app.route("/<section>/img/<pic>")
+def page_image(section,pic):
   """
   Static image associated with a page
   """
-  app.logger.debug("Request for image: '{}'".format(pic))
+  app.logger.debug("Request for imag'{}' in section '{};".format(pic,section))
   try:
-    path = "templates/pages/img/{}".format(pic)
+    if section not in ["pages", "events"]:
+      raise NotFound
+    path = "templates/{section}/img/{}".format(section,pic)
+    app.logger.debug("Download image from '{}'".format(path))
+    return flask.send_file(path)
+  except:
+    app.logger.debug("Caught exception downloading file")
+    # We should get TemplateNotFound exception when page URL is wrong
+    raise NotFound
+
+@app.route("/events/<page>")
+def events(page):
+  """
+  templates/events is for current season events.  We'll later add 
+  an archived events directory, divided by year. 
+  """
+  app.logger.debug("Request for event page: '{}'".format(page))
+  try:
+    if page.endswith(".html"):
+      path = "events/{}".format(page)
+    else: 
+      path = "events/{}.html".format(page)
+    app.logger.debug("Loading page from '{}'".format(path))
+    return flask.render_template(path)
+  except TemplateNotFound:
+    app.logger.debug("Caught TemplateNotFound")
+    # We should get TemplateNotFound exception when page URL is wrong
+    raise NotFound
+
+@app.route("/events/pdfs/<doc>")
+def event_pdf(doc):
+  """
+  Static pdf associated with a page
+  """
+  app.logger.debug("Request for doc: '{}'".format(doc))
+  try:
+    path = "templates/events/pdfs/{}".format(doc)
     app.logger.debug("Download image from '{}'".format(path))
     return flask.send_file(path)
   except:
