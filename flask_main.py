@@ -49,7 +49,6 @@ def index():
   today = arrow.now().isoformat()
   flask.session["today"] = today
   return flask.render_template('index.html')
-
     
 ######
 #  Routes to static pages
@@ -71,20 +70,26 @@ def pages(page):
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
 
+
+
 @app.route("/<section>/img/<pic>")
 def page_image(section,pic):
   """
   Static image associated with a page
   """
-  app.logger.debug("Request for imag'{}' in section '{};".format(pic,section))
+  app.logger.debug("Request for image '{}' in section '{}'".format(pic,section))
   try:
-    if section not in ["pages", "events"]:
+    if section == "static":
+       path = "static/img/{}".format(pic)
+    elif section not in ["pages", "events"]:
+      app.logger.debug("No section {}".format(section))
       raise NotFound
-    path = "templates/{section}/img/{}".format(section,pic)
+    else: 
+       path = "templates/{}/img/{}".format(section,pic)
     app.logger.debug("Download image from '{}'".format(path))
     return flask.send_file(path)
   except:
-    app.logger.debug("Caught exception downloading file")
+    app.logger.debug("Caught exception downloading image file")
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
 
