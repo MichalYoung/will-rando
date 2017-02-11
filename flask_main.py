@@ -49,6 +49,19 @@ def index():
   today = arrow.now().isoformat()
   flask.session["today"] = today
   return flask.render_template('index.html')
+
+#####
+# Registration pages & processing
+#####
+
+@app.route("/events/register/<event>")
+def register(event):
+    """
+    Main (initial) registration page for an event
+    """
+    # FIXME: Look up event details (in database?)
+    return flask.render_template("register.html")
+    
     
 ######
 #  Routes to static pages
