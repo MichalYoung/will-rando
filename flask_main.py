@@ -193,7 +193,7 @@ def how_long(date):
     """
     Humanized description of how long until a given date.
     """
-    return arrow.get(date).humanize()
+    return arrow.get(date).replace(tzinfo="US/Pacific").humanize()
 
 @app.template_filter('short_date')
 def short_date( date ):
