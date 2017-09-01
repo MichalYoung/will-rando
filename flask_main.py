@@ -94,7 +94,7 @@ def page_image(section,pic):
   try:
     if section == "static":
        path = "static/img/{}".format(pic)
-    elif section not in ["pages", "events"]:
+    elif section not in ["pages", "events", "perms"]:
       app.logger.debug("No section {}".format(section))
       raise NotFound
     else: 
@@ -105,6 +105,29 @@ def page_image(section,pic):
     app.logger.debug("Caught exception downloading image file")
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
+
+@app.route("/<section>/docs/<doc>")
+def event_doc(section,doc):
+  """
+  Static document linked from an event or permanent page 
+  """
+  app.logger.debug("Request for doc '{}' in section '{}'".format(doc,section))
+  try:
+    if section == "static":
+       path = "static/img/{}".format(pic)
+    elif section not in ["pages", "events", "perms"]:
+      app.logger.debug("No section {}".format(section))
+      raise NotFound
+    else: 
+       path = "templates/{}/docs/{}".format(section,doc)
+    app.logger.debug("Download doc from '{}'".format(path))
+    return flask.send_file(path)
+  except:
+    app.logger.debug("Caught exception downloading document file")
+    # We should get TemplateNotFound exception when page URL is wrong
+    raise NotFound
+
+    
 
 @app.route("/events/<page>")
 def events(page):
@@ -118,6 +141,25 @@ def events(page):
       path = "events/{}".format(page)
     else: 
       path = "events/{}.html".format(page)
+    app.logger.debug("Loading page from '{}'".format(path))
+    return flask.render_template(path)
+  except TemplateNotFound:
+    app.logger.debug("Caught TemplateNotFound")
+    # We should get TemplateNotFound exception when page URL is wrong
+    raise NotFound
+
+@app.route("/perms/<page>")
+def perms(page):
+  """
+  templates for permanents.  These don't change from year
+  to year
+  """
+  app.logger.debug("Request for permanent page: '{}'".format(page))
+  try:
+    if page.endswith(".html"):
+      path = "perms/{}".format(page)
+    else: 
+      path = "perms/{}.html".format(page)
     app.logger.debug("Loading page from '{}'".format(path))
     return flask.render_template(path)
   except TemplateNotFound:
