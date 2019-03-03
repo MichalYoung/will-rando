@@ -7,17 +7,10 @@ Willamette Randonneurs
 
 import flask
 from flask import render_template
-from flask import request
-from flask import url_for
-from flask import flash
-from flask import jsonify # For AJAX transactions
-from flask import json
-from flask import g
 
 from jinja2.exceptions import TemplateNotFound  # Used for /pages/<page>
 from werkzeug.exceptions import HTTPException, NotFound # ""
 
-import logging  # For debugging
 
 # For dates in activations.  Convention:  We
 # store all dates as ISO strings, converting
@@ -127,7 +120,26 @@ def event_doc(section,doc):
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
 
-    
+
+@app.route("/events/<int:year>/<page>")
+def events_by_year(year, page):
+  """
+  templates/events is for current season events.  We'll later add
+  an archived events directory, divided by year.
+  """
+  app.logger.debug(f"Request for event for year {year}: {page}")
+  try:
+    if page.endswith(".html"):
+      path = f"events/{year}/{page}"
+    else:
+      path = f"events/{year}/{page}.html"
+    app.logger.debug("Loading page from '{}'".format(path))
+    return flask.render_template(path)
+  except TemplateNotFound:
+    app.logger.debug("Caught TemplateNotFound")
+    # We should get TemplateNotFound exception when page URL is wrong
+    raise NotFound
+
 
 @app.route("/events/<page>")
 def events(page):
@@ -147,6 +159,7 @@ def events(page):
     app.logger.debug("Caught TemplateNotFound")
     # We should get TemplateNotFound exception when page URL is wrong
     raise NotFound
+
 
 @app.route("/perms/<page>")
 def perms(page):
