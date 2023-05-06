@@ -1,1 +1,1 @@
-herweb: gunicorn flask_main:app  --log-file -
+web: gunicorn flask_main:app  --log-file -
