@@ -47,15 +47,7 @@ def index():
 # Registration pages & processing
 #####
 
-@app.route("/events/register/<event>")
-def register(event):
-    """
-    Main (initial) registration page for an event
-    """
-    # FIXME: Look up event details (in database?)
-    return flask.render_template("register.html")
-    
-    
+
 ######
 #  Routes to static pages
 ######
@@ -107,7 +99,7 @@ def event_doc(section,doc):
   app.logger.debug("Request for doc '{}' in section '{}'".format(doc,section))
   try:
     if section == "static":
-       path = "static/img/{}".format(pic)
+       path = "static/img/{}".format(doc)
     elif section not in ["pages", "events", "perms"]:
       app.logger.debug("No section {}".format(section))
       raise NotFound
